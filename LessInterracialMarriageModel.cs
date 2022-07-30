@@ -10,15 +10,18 @@ namespace LessInterracialMarriage
         // If 10% or more of the lords in either hero's faction is of a foreign culture, stop the couple from marrying.
         public override bool IsCoupleSuitableForMarriage(Hero firstHero, Hero secondHero)
         {
-            CultureObject culture = firstHero.MapFaction.Culture;
-            CultureObject culture2 = secondHero.MapFaction.Culture;
-            if (culture != culture2)
+            if (firstHero.MapFaction != null && secondHero.MapFaction != null)
             {
-                List<Hero> lords = firstHero.MapFaction.Lords.ToList();
-                List<Hero> lords2 = secondHero.MapFaction.Lords.ToList();
-                if (lords.Count(lord => lord.Culture != culture) >= lords.Count / 10 || lords2.Count(lord => lord.Culture != culture2) >= lords2.Count / 10)
+                CultureObject culture = firstHero.MapFaction.Culture;
+                CultureObject culture2 = secondHero.MapFaction.Culture;
+                if (culture != culture2)
                 {
-                    return false;
+                    List<Hero> lords = firstHero.MapFaction.Lords.ToList();
+                    List<Hero> lords2 = secondHero.MapFaction.Lords.ToList();
+                    if (lords.Count(lord => lord.Culture != culture) >= lords.Count / 10 || lords2.Count(lord => lord.Culture != culture2) >= lords2.Count / 10)
+                    {
+                        return false;
+                    }
                 }
             }
             return base.IsCoupleSuitableForMarriage(firstHero, secondHero);
